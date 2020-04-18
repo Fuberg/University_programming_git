@@ -109,6 +109,7 @@ public class Main {
         cat.addItem(new GenericItem("Карандаш", 33.35f, GenericItem.Category.DRESS));
         cat.addItem(new GenericItem("Фонарь", 332.53f, GenericItem.Category.DRESS));
         cat.addItem(new GenericItem("Лампочка", 1002.25f, GenericItem.Category.DRESS));
+        cat.addItem(new GenericItem("Лампочка", 1002.25f, GenericItem.Category.DRESS));
 
         long begin = new Date().getTime();
 
@@ -126,6 +127,8 @@ public class Main {
         loader.load(cat);
 
         cat.printItems();
+
+        // Лаба 5
 
     }
 }
