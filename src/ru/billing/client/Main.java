@@ -4,6 +4,8 @@ import ru.billing.stocklist.FoodItem;
 import ru.billing.stocklist.GenericItem;
 import ru.billing.stocklist.ItemCatalog;
 import ru.billing.stocklist.TechnicalItem;
+import ru.billing.exceptions.ItemAlreadyExistsException;
+import ru.billing.exceptions.CatalogLoadException;
 
 import java.util.Date;
 import java.lang.String;
@@ -99,17 +101,21 @@ public class Main {
 
         ItemCatalog cat = new ItemCatalog();
 
-        cat.addItem(new GenericItem("Стол", 112.5f, GenericItem.Category.DRESS));
-        cat.addItem(new GenericItem("Стул", 19.5f, GenericItem.Category.DRESS));
-        cat.addItem(new GenericItem("Шкаф", 92.9f, GenericItem.Category.DRESS));
-        cat.addItem(new GenericItem("Тумбочка", 183.15f, GenericItem.Category.DRESS));
-        cat.addItem(new GenericItem("Шахматы", 43.45f, GenericItem.Category.DRESS));
-        cat.addItem(new GenericItem("Ноутбук", 36.75f, GenericItem.Category.DRESS));
-        cat.addItem(new GenericItem("Телефон", 98.5f, GenericItem.Category.DRESS));
-        cat.addItem(new GenericItem("Карандаш", 33.35f, GenericItem.Category.DRESS));
-        cat.addItem(new GenericItem("Фонарь", 332.53f, GenericItem.Category.DRESS));
-        cat.addItem(new GenericItem("Лампочка", 1002.25f, GenericItem.Category.DRESS));
-        cat.addItem(new GenericItem("Лампочка", 1002.25f, GenericItem.Category.DRESS));
+        try {
+            cat.addItem(new GenericItem("Стол", 112.5f, GenericItem.Category.DRESS));
+            cat.addItem(new GenericItem("Стул", 19.5f, GenericItem.Category.DRESS));
+            cat.addItem(new GenericItem("Шкаф", 92.9f, GenericItem.Category.DRESS));
+            cat.addItem(new GenericItem("Тумбочка", 183.15f, GenericItem.Category.DRESS));
+            cat.addItem(new GenericItem("Шахматы", 43.45f, GenericItem.Category.DRESS));
+            cat.addItem(new GenericItem("Ноутбук", 36.75f, GenericItem.Category.DRESS));
+            cat.addItem(new GenericItem("Телефон", 98.5f, GenericItem.Category.DRESS));
+            cat.addItem(new GenericItem("Карандаш", 33.35f, GenericItem.Category.DRESS));
+            cat.addItem(new GenericItem("Фонарь", 332.53f, GenericItem.Category.DRESS));
+            cat.addItem(new GenericItem("Лампочка", 1002.25f, GenericItem.Category.DRESS));
+            cat.addItem(new GenericItem("Лампочка", 1002.25f, GenericItem.Category.DRESS));
+        }catch (ItemAlreadyExistsException e){
+            e.printStackTrace();
+        }
 
         long begin = new Date().getTime();
 
@@ -124,7 +130,11 @@ public class Main {
         System.out.println("In ArrayList: "+(end-begin));
 
         CatalogLoader loader = new CatalogStubLoader();
-        loader.load(cat);
+        try {
+            loader.load(cat);
+        } catch (CatalogLoadException e){
+            e.printStackTrace();
+        }
 
         cat.printItems();
 
